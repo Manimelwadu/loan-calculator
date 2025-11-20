@@ -1,5 +1,5 @@
 /* =========================================
-   THEME VARIABLES (The "Tech" Palette)
+   THEME VARIABLES
    ========================================= */
 :root {
     --bg-gradient: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
@@ -25,35 +25,34 @@
 body {
     font-family: 'Inter', sans-serif;
     background: var(--bg-gradient);
-    background-attachment: fixed; /* Keeps background still while scrolling */
+    background-attachment: fixed;
     color: var(--text-main);
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; /* Centers the card vertically */
     padding: 2rem;
 }
 
 /* =========================================
-   MAIN CONTAINER (The Glass Card)
+   MAIN CONTAINER (Glass Card)
    ========================================= */
 .calculator-container {
     display: grid;
-    grid-template-columns: 1fr 1.2fr;
+    grid-template-columns: 1fr 1.3fr;
     gap: 0;
     width: 100%;
     max-width: 1100px;
     background: var(--glass-bg);
-    backdrop-filter: blur(12px); /* The blur magic */
+    backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--glass-border);
     border-radius: 20px;
     box-shadow: var(--shadow-strong);
     overflow: hidden;
-    animation: slideUp 0.8s ease-out; /* Entrance Animation */
+    animation: slideUp 0.8s ease-out;
 }
 
-/* Entrance Animation */
 @keyframes slideUp {
     from { transform: translateY(50px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
@@ -63,7 +62,7 @@ body {
    LEFT PANEL (Inputs)
    ========================================= */
 .input-panel {
-    padding: 3rem;
+    padding: 2.5rem;
     background: rgba(0, 0, 0, 0.2);
     border-right: 1px solid var(--glass-border);
 }
@@ -72,24 +71,16 @@ body {
     font-weight: 700;
     font-size: 1.8rem;
     margin-bottom: 2rem;
-    
-    /* The Gradient Text Magic */
+    /* Gradient Text */
     background: linear-gradient(to right, var(--neon-blue), var(--neon-purple));
-    
-    /* Fix: Define standard property first, then the vendor prefix */
-    background-clip: text; 
+    background-clip: text;
     -webkit-background-clip: text;
-    
-    /* Make text transparent so background shows through */
-    -webkit-text-fill-color: transparent;
-    color: transparent; /* Standard fallback */
-    
+    color: transparent;
     letter-spacing: 1px;
 }
 
 .form-group {
-    margin-bottom: 1.5rem;
-    position: relative;
+    margin-bottom: 1.2rem;
 }
 
 .form-group label {
@@ -97,20 +88,20 @@ body {
     color: var(--text-muted);
     margin-bottom: 0.5rem;
     display: block;
-    transition: color 0.3s;
 }
 
 .form-group .small-label {
     font-size: 0.75rem;
     color: var(--neon-blue);
     opacity: 0.8;
+    margin-top: 4px;
 }
 
 .form-group input {
     width: 100%;
     background: var(--input-bg);
     border: 1px solid var(--glass-border);
-    padding: 1rem;
+    padding: 0.8rem;
     border-radius: 8px;
     color: #fff;
     font-size: 1rem;
@@ -118,26 +109,20 @@ body {
     transition: all 0.3s ease;
 }
 
-/* Input Hover & Focus Effects */
 .form-group input:focus {
     outline: none;
     border-color: var(--neon-blue);
-    box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
     background: rgba(0, 0, 0, 0.5);
-}
-
-.form-group:hover label {
-    color: var(--text-main);
 }
 
 .form-divider {
     border: 0;
     height: 1px;
     background: linear-gradient(to right, transparent, var(--glass-border), transparent);
-    margin: 2rem 0;
+    margin: 1.5rem 0;
 }
 
-/* The Button - Tech Style */
 #calculate-btn {
     width: 100%;
     padding: 1rem;
@@ -147,7 +132,7 @@ body {
     background: linear-gradient(45deg, var(--neon-blue), #007bff);
     color: #000;
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 1rem;
     text-transform: uppercase;
     letter-spacing: 1px;
     cursor: pointer;
@@ -155,22 +140,16 @@ body {
 }
 
 #calculate-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 20px rgba(0, 242, 255, 0.6);
-}
-
-#calculate-btn:active {
-    transform: translateY(0);
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
 }
 
 /* =========================================
    RIGHT PANEL (Outputs)
    ========================================= */
 .output-panel {
-    padding: 3rem;
+    padding: 2.5rem;
     background: rgba(255, 255, 255, 0.02);
-    display: flex;
-    flex-direction: column;
 }
 
 .output-panel h3 {
@@ -184,11 +163,11 @@ body {
     justify-content: space-between;
     align-items: center;
     background: rgba(255, 255, 255, 0.05);
-    padding: 1.2rem;
+    padding: 1rem;
     border-radius: 10px;
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
     border-left: 4px solid var(--glass-border);
-    transition: transform 0.3s ease, border-color 0.3s;
+    transition: transform 0.3s ease;
 }
 
 .result-box:hover {
@@ -196,50 +175,66 @@ body {
     background: rgba(255, 255, 255, 0.08);
 }
 
-/* Highlighting Key Results */
 #monthly-payment-result {
     color: var(--neon-blue);
-    text-shadow: 0 0 10px rgba(0, 242, 255, 0.4);
-    font-size: 1.8rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(0, 242, 255, 0.3);
 }
 
+/* Special styling for 'Saved' results */
 .result-box-new {
-    background: rgba(188, 19, 254, 0.1); /* Purple tint */
+    background: rgba(188, 19, 254, 0.08);
     border-left: 4px solid var(--neon-purple);
 }
-
 .result-box-new span {
     color: var(--neon-purple);
-    text-shadow: 0 0 10px rgba(188, 19, 254, 0.4);
+    font-weight: 700;
+    text-shadow: 0 0 8px rgba(188, 19, 254, 0.3);
 }
 
 .output-panel hr {
     border: 0;
     height: 1px;
     background: var(--glass-border);
-    margin: 2rem 0;
+    margin: 1.5rem 0;
+}
+
+/* Secondary Button (Print) */
+.secondary-btn {
+    width: 100%;
+    padding: 0.8rem;
+    margin-top: 1rem;
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.secondary-btn:hover {
+    background: rgba(255,255,255,0.1);
+    color: white;
+    border-color: white;
 }
 
 /* =========================================
-   AMORTIZATION TABLE (Cyber Table)
+   TABLE
    ========================================= */
 .table-container {
-    max-height: 350px;
+    max-height: 300px;
     overflow-y: auto;
     border-radius: 8px;
     background: rgba(0,0,0,0.2);
 }
-
-/* Custom Scrollbar for tech look */
 .table-container::-webkit-scrollbar {
-    width: 8px;
-}
-.table-container::-webkit-scrollbar-track {
-    background: rgba(0,0,0,0.3);
+    width: 6px;
 }
 .table-container::-webkit-scrollbar-thumb {
-    background: var(--glass-border); 
-    border-radius: 4px;
+    background: var(--glass-border);
+    border-radius: 3px;
 }
 
 table {
@@ -247,36 +242,91 @@ table {
     border-collapse: collapse;
     font-size: 0.9rem;
 }
-
 th {
     text-align: left;
     padding: 1rem;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0,0,0,0.4);
     color: var(--text-muted);
     position: sticky;
     top: 0;
-    font-weight: 600;
     backdrop-filter: blur(5px);
 }
-
 td {
     padding: 0.8rem 1rem;
     border-bottom: 1px solid rgba(255,255,255,0.05);
-    color: var(--text-main);
 }
-
 tr:hover td {
-    background: rgba(0, 242, 255, 0.05); /* Row highlight on hover */
+    background: rgba(0, 242, 255, 0.05);
 }
 
-/* Mobile Responsive */
-@media (max-width: 850px) {
+/* =========================================
+   MOBILE RESPONSIVE
+   ========================================= */
+@media (max-width: 900px) {
     .calculator-container {
         grid-template-columns: 1fr;
-        margin: 1rem 0;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
     }
-    
     .input-panel, .output-panel {
-        padding: 2rem;
+        padding: 1.5rem;
+    }
+}
+
+/* =========================================
+   PRINT MODE (Clean PDF)
+   ========================================= */
+@media print {
+    body {
+        background: white;
+        color: black;
+        display: block;
+        padding: 0;
+    }
+    .calculator-container {
+        box-shadow: none;
+        border: none;
+        width: 100%;
+        max-width: 100%;
+        background: white;
+        display: block;
+        backdrop-filter: none;
+    }
+    .input-panel, #calculate-btn, .secondary-btn, .form-divider {
+        display: none !important;
+    }
+    .output-panel {
+        padding: 0;
+        background: white;
+    }
+    .result-box, .result-box-new {
+        background: white;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        color: black;
+        padding: 0.5rem 0;
+        margin: 0;
+    }
+    .result-box p, .result-box span, #monthly-payment-result, .result-box-new span {
+        color: black !important;
+        text-shadow: none !important;
+    }
+    .output-panel h3 {
+        color: black;
+        border-bottom: 2px solid black;
+    }
+    .table-container {
+        max-height: none;
+        overflow: visible;
+        background: white;
+    }
+    th {
+        background: #eee;
+        color: black;
+        border-bottom: 2px solid black;
+    }
+    td {
+        border-bottom: 1px solid #ccc;
+        color: black;
     }
 }
