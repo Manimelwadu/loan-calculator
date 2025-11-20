@@ -1,166 +1,332 @@
-// Wait for the DOM to be fully loaded before running the script
-document.addEventListener("DOMContentLoaded", function() {
-    // ... previous code ...
+/* =========================================
+   THEME VARIABLES
+   ========================================= */
+:root {
+    --bg-gradient: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --neon-blue: #00f2ff;
+    --neon-purple: #bc13fe;
+    --text-main: #ffffff;
+    --text-muted: #a0a0a0;
+    --input-bg: rgba(0, 0, 0, 0.3);
+    --shadow-strong: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+}
 
-    // Handle the Print Button
-    const printBtn = document.getElementById("print-btn");
-    printBtn.addEventListener("click", function() {
-        // This triggers the browser's native print dialog
-        // Users can choose "Save as PDF" from there
-        window.print();
-   
+/* =========================================
+   GLOBAL STYLES
+   ========================================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-}); // End of DOMContentLoaded
-    // Get references to all the HTML elements we need
-    const calculateBtn = document.getElementById("calculate-btn");
-    
-    // Inputs
-    const loanAmountInput = document.getElementById("loan-amount");
-    const interestRateInput = document.getElementById("interest-rate");
-    const loanTermInput = document.getElementById("loan-term");
-    const extraMonthlyInput = document.getElementById("extra-monthly");
-    const oneTimePaymentInput = document.getElementById("one-time-payment");
-    const oneTimeMonthInput = document.getElementById("one-time-month");
-    
-    // Outputs
-    const monthlyPaymentResult = document.getElementById("monthly-payment-result");
-    const totalInterestResult = document.getElementById("total-interest-result");
-    const totalCostResult = document.getElementById("total-cost-result");
-    const interestSavedResult = document.getElementById("interest-saved-result");
-    const payoffDateResult = document.getElementById("payoff-date-result");
-    const amortizationBody = document.getElementById("amortization-body");
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-gradient);
+    background-attachment: fixed;
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Centers the card vertically */
+    padding: 2rem;
+}
 
-    // Helper function to format numbers as currency
-    function formatCurrency(number) {
-        return new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD',
-        }).format(number);
+/* =========================================
+   MAIN CONTAINER (Glass Card)
+   ========================================= */
+.calculator-container {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 0;
+    width: 100%;
+    max-width: 1100px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: var(--shadow-strong);
+    overflow: hidden;
+    animation: slideUp 0.8s ease-out;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* =========================================
+   LEFT PANEL (Inputs)
+   ========================================= */
+.input-panel {
+    padding: 2.5rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-right: 1px solid var(--glass-border);
+}
+
+.input-panel h2 {
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    /* Gradient Text */
+    background: linear-gradient(to right, var(--neon-blue), var(--neon-purple));
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    letter-spacing: 1px;
+}
+
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.form-group .small-label {
+    font-size: 0.75rem;
+    color: var(--neon-blue);
+    opacity: 0.8;
+    margin-top: 4px;
+}
+
+.form-group input {
+    width: 100%;
+    background: var(--input-bg);
+    border: 1px solid var(--glass-border);
+    padding: 0.8rem;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.form-divider {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--glass-border), transparent);
+    margin: 1.5rem 0;
+}
+
+#calculate-btn {
+    width: 100%;
+    padding: 1rem;
+    margin-top: 1rem;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(45deg, var(--neon-blue), #007bff);
+    color: #000;
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#calculate-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
+}
+
+/* =========================================
+   RIGHT PANEL (Outputs)
+   ========================================= */
+.output-panel {
+    padding: 2.5rem;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.output-panel h3 {
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-main);
+}
+
+.result-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 0.8rem;
+    border-left: 4px solid var(--glass-border);
+    transition: transform 0.3s ease;
+}
+
+.result-box:hover {
+    transform: translateX(5px);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+#monthly-payment-result {
+    color: var(--neon-blue);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(0, 242, 255, 0.3);
+}
+
+/* Special styling for 'Saved' results */
+.result-box-new {
+    background: rgba(188, 19, 254, 0.08);
+    border-left: 4px solid var(--neon-purple);
+}
+.result-box-new span {
+    color: var(--neon-purple);
+    font-weight: 700;
+    text-shadow: 0 0 8px rgba(188, 19, 254, 0.3);
+}
+
+.output-panel hr {
+    border: 0;
+    height: 1px;
+    background: var(--glass-border);
+    margin: 1.5rem 0;
+}
+
+/* Secondary Button (Print) */
+.secondary-btn {
+    width: 100%;
+    padding: 0.8rem;
+    margin-top: 1rem;
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.secondary-btn:hover {
+    background: rgba(255,255,255,0.1);
+    color: white;
+    border-color: white;
+}
+
+/* =========================================
+   TABLE
+   ========================================= */
+.table-container {
+    max-height: 300px;
+    overflow-y: auto;
+    border-radius: 8px;
+    background: rgba(0,0,0,0.2);
+}
+.table-container::-webkit-scrollbar {
+    width: 6px;
+}
+.table-container::-webkit-scrollbar-thumb {
+    background: var(--glass-border);
+    border-radius: 3px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+th {
+    text-align: left;
+    padding: 1rem;
+    background: rgba(0,0,0,0.4);
+    color: var(--text-muted);
+    position: sticky;
+    top: 0;
+    backdrop-filter: blur(5px);
+}
+td {
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+tr:hover td {
+    background: rgba(0, 242, 255, 0.05);
+}
+
+/* =========================================
+   MOBILE RESPONSIVE
+   ========================================= */
+@media (max-width: 900px) {
+    .calculator-container {
+        grid-template-columns: 1fr;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
     }
-    
-    // Helper function to calculate the standard monthly payment
-    function calculateOriginalPayment(principal, annualRate, termInYears) {
-        const monthlyRate = annualRate / 100 / 12;
-        const numberOfPayments = termInYears * 12;
-
-        if (monthlyRate === 0) {
-            return principal / numberOfPayments;
-        }
-        return principal * (monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments)) / 
-               (Math.pow(1 + monthlyRate, numberOfPayments) - 1);
+    .input-panel, .output-panel {
+        padding: 1.5rem;
     }
+}
 
-    // Main calculation logic
-    function performCalculations() {
-        // 1. GET ALL INPUTS and convert to numbers
-        const principal = parseFloat(loanAmountInput.value);
-        const annualRate = parseFloat(interestRateInput.value);
-        const termInYears = parseFloat(loanTermInput.value);
-        const extraMonthly = parseFloat(extraMonthlyInput.value) || 0; // Default to 0 if empty
-        const oneTimePayment = parseFloat(oneTimePaymentInput.value) || 0; // Default to 0
-        const oneTimeMonth = parseInt(oneTimeMonthInput.value) || 0; // Default to 0
-
-        // --- Input Validation ---
-        if (isNaN(principal) || isNaN(annualRate) || isNaN(termInYears) || principal <= 0 || annualRate < 0 || termInYears <= 0) {
-            alert("Please enter valid positive numbers for Amount, Rate, and Term.");
-            return;
-        }
-
-        // 2. CALCULATE ORIGINAL LOAN (for comparison)
-        const originalMonthlyPayment = calculateOriginalPayment(principal, annualRate, termInYears);
-        const originalTotalPayments = termInYears * 12;
-        const originalTotalInterest = (originalMonthlyPayment * originalTotalPayments) - principal;
-
-        // 3. GENERATE NEW AMORTIZATION SCHEDULE (with extra payments)
-        const schedule = [];
-        let remainingBalance = principal;
-        let totalInterestPaid = 0;
-        const monthlyRate = annualRate / 100 / 12;
-        let month = 1;
-
-        // Loop until the balance is 0 or less
-        while (remainingBalance > 0) {
-            // Calculate interest for this month
-            const interestForMonth = remainingBalance * monthlyRate;
-
-            // Calculate principal
-            let principalForMonth = originalMonthlyPayment - interestForMonth;
-
-            // Add extra payments to the principal
-            principalForMonth += extraMonthly;
-
-            // Add one-time payment if it's the correct month
-            if (month === oneTimeMonth) {
-                principalForMonth += oneTimePayment;
-            }
-
-            // Check if this payment is more than the remaining balance
-            if (principalForMonth > remainingBalance) {
-                principalForMonth = remainingBalance;
-            }
-
-            // Update remaining balance
-            remainingBalance -= principalForMonth;
-
-            // Handle the final payment (might be less than a full payment)
-            // If balance went negative, adjust principal
-            if (remainingBalance < 0) {
-                principalForMonth += remainingBalance; // e.g., principal 1000, balance -50 -> new principal 950
-                remainingBalance = 0;
-            }
-            
-            // Add to total interest paid
-            totalInterestPaid += interestForMonth;
-
-            // Add this month's data to the schedule array
-            schedule.push({
-                month: month,
-                interest: interestForMonth,
-                principal: principalForMonth,
-                balance: remainingBalance,
-            });
-
-            // Safety break to prevent infinite loops from bad data (e.g., 0% rate with no payment)
-            if (month > (originalTotalPayments + 1200)) { 
-                console.error("Loop extended too far. Breaking.");
-                alert("Calculation error. Please check inputs. Loan may not be payable.");
-                return;
-            }
-            month++;
-        }
-
-        // 4. DISPLAY SUMMARY OUTPUTS
-        const newTotalPayments = schedule.length;
-        const newTotalCost = principal + totalInterestPaid;
-        const interestSaved = originalTotalInterest - totalInterestPaid;
-        const years = Math.floor(newTotalPayments / 12);
-        const months = newTotalPayments % 12;
-
-        // Update the HTML elements
-        monthlyPaymentResult.textContent = formatCurrency(originalMonthlyPayment);
-        totalInterestResult.textContent = formatCurrency(totalInterestPaid);
-        totalCostResult.textContent = formatCurrency(newTotalCost);
-        
-        interestSavedResult.textContent = formatCurrency(interestSaved);
-        payoffDateResult.textContent = `${years} years, ${months} months`;
-
-        // 5. DISPLAY AMORTIZATION TABLE
-        amortizationBody.innerHTML = ""; // Clear any old data first
-
-        schedule.forEach(row => {
-            const tr = document.createElement("tr");
-            tr.innerHTML = `
-                <td>${row.month}</td>
-                <td>${formatCurrency(row.principal)}</td>
-                <td>${formatCurrency(row.interest)}</td>
-                <td>${formatCurrency(row.balance)}</td>
-            `;
-            amortizationBody.appendChild(tr);
-        });
+/* =========================================
+   PRINT MODE (Clean PDF)
+   ========================================= */
+@media print {
+    body {
+        background: white;
+        color: black;
+        display: block;
+        padding: 0;
     }
-    
-
-    // Add the click "event listener" to the button
-    calculateBtn.addEventListener("click", performCalculations);
-
-});
+    .calculator-container {
+        box-shadow: none;
+        border: none;
+        width: 100%;
+        max-width: 100%;
+        background: white;
+        display: block;
+        backdrop-filter: none;
+    }
+    .input-panel, #calculate-btn, .secondary-btn, .form-divider {
+        display: none !important;
+    }
+    .output-panel {
+        padding: 0;
+        background: white;
+    }
+    .result-box, .result-box-new {
+        background: white;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        color: black;
+        padding: 0.5rem 0;
+        margin: 0;
+    }
+    .result-box p, .result-box span, #monthly-payment-result, .result-box-new span {
+        color: black !important;
+        text-shadow: none !important;
+    }
+    .output-panel h3 {
+        color: black;
+        border-bottom: 2px solid black;
+    }
+    .table-container {
+        max-height: none;
+        overflow: visible;
+        background: white;
+    }
+    th {
+        background: #eee;
+        color: black;
+        border-bottom: 2px solid black;
+    }
+    td {
+        border-bottom: 1px solid #ccc;
+        color: black;
+    }
+}
