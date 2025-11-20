@@ -1,0 +1,282 @@
+/* =========================================
+   THEME VARIABLES (The "Tech" Palette)
+   ========================================= */
+:root {
+    --bg-gradient: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --neon-blue: #00f2ff;
+    --neon-purple: #bc13fe;
+    --text-main: #ffffff;
+    --text-muted: #a0a0a0;
+    --input-bg: rgba(0, 0, 0, 0.3);
+    --shadow-strong: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* =========================================
+   GLOBAL STYLES
+   ========================================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-gradient);
+    background-attachment: fixed; /* Keeps background still while scrolling */
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+/* =========================================
+   MAIN CONTAINER (The Glass Card)
+   ========================================= */
+.calculator-container {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 0;
+    width: 100%;
+    max-width: 1100px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px); /* The blur magic */
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: var(--shadow-strong);
+    overflow: hidden;
+    animation: slideUp 0.8s ease-out; /* Entrance Animation */
+}
+
+/* Entrance Animation */
+@keyframes slideUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* =========================================
+   LEFT PANEL (Inputs)
+   ========================================= */
+.input-panel {
+    padding: 3rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-right: 1px solid var(--glass-border);
+}
+
+.input-panel h2 {
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    
+    /* The Gradient Text Magic */
+    background: linear-gradient(to right, var(--neon-blue), var(--neon-purple));
+    
+    /* Fix: Define standard property first, then the vendor prefix */
+    background-clip: text; 
+    -webkit-background-clip: text;
+    
+    /* Make text transparent so background shows through */
+    -webkit-text-fill-color: transparent;
+    color: transparent; /* Standard fallback */
+    
+    letter-spacing: 1px;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    display: block;
+    transition: color 0.3s;
+}
+
+.form-group .small-label {
+    font-size: 0.75rem;
+    color: var(--neon-blue);
+    opacity: 0.8;
+}
+
+.form-group input {
+    width: 100%;
+    background: var(--input-bg);
+    border: 1px solid var(--glass-border);
+    padding: 1rem;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease;
+}
+
+/* Input Hover & Focus Effects */
+.form-group input:focus {
+    outline: none;
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.form-group:hover label {
+    color: var(--text-main);
+}
+
+.form-divider {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--glass-border), transparent);
+    margin: 2rem 0;
+}
+
+/* The Button - Tech Style */
+#calculate-btn {
+    width: 100%;
+    padding: 1rem;
+    margin-top: 1rem;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(45deg, var(--neon-blue), #007bff);
+    color: #000;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#calculate-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.6);
+}
+
+#calculate-btn:active {
+    transform: translateY(0);
+}
+
+/* =========================================
+   RIGHT PANEL (Outputs)
+   ========================================= */
+.output-panel {
+    padding: 3rem;
+    background: rgba(255, 255, 255, 0.02);
+    display: flex;
+    flex-direction: column;
+}
+
+.output-panel h3 {
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-main);
+}
+
+.result-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1.2rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    border-left: 4px solid var(--glass-border);
+    transition: transform 0.3s ease, border-color 0.3s;
+}
+
+.result-box:hover {
+    transform: translateX(5px);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Highlighting Key Results */
+#monthly-payment-result {
+    color: var(--neon-blue);
+    text-shadow: 0 0 10px rgba(0, 242, 255, 0.4);
+    font-size: 1.8rem;
+}
+
+.result-box-new {
+    background: rgba(188, 19, 254, 0.1); /* Purple tint */
+    border-left: 4px solid var(--neon-purple);
+}
+
+.result-box-new span {
+    color: var(--neon-purple);
+    text-shadow: 0 0 10px rgba(188, 19, 254, 0.4);
+}
+
+.output-panel hr {
+    border: 0;
+    height: 1px;
+    background: var(--glass-border);
+    margin: 2rem 0;
+}
+
+/* =========================================
+   AMORTIZATION TABLE (Cyber Table)
+   ========================================= */
+.table-container {
+    max-height: 350px;
+    overflow-y: auto;
+    border-radius: 8px;
+    background: rgba(0,0,0,0.2);
+}
+
+/* Custom Scrollbar for tech look */
+.table-container::-webkit-scrollbar {
+    width: 8px;
+}
+.table-container::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.3);
+}
+.table-container::-webkit-scrollbar-thumb {
+    background: var(--glass-border); 
+    border-radius: 4px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+th {
+    text-align: left;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.5);
+    color: var(--text-muted);
+    position: sticky;
+    top: 0;
+    font-weight: 600;
+    backdrop-filter: blur(5px);
+}
+
+td {
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    color: var(--text-main);
+}
+
+tr:hover td {
+    background: rgba(0, 242, 255, 0.05); /* Row highlight on hover */
+}
+
+/* Mobile Responsive */
+@media (max-width: 850px) {
+    .calculator-container {
+        grid-template-columns: 1fr;
+        margin: 1rem 0;
+    }
+    
+    .input-panel, .output-panel {
+        padding: 2rem;
+    }
+}
