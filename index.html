@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loan Calculator Pro</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Loan Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,91 +12,109 @@
     <main class="calculator-container">
         
         <section class="input-panel">
-            <h2>Loan Calculator</h2>
+            <header>
+                <h2>Loan Calculator</h2>
+                <p>Plan your loan and savings accurately.</p>
+            </header>
+            
             <form id="loan-form">
                 <div class="form-group">
-                    <label for="loan-amount">Loan Amount ($)</label>
-                    <input type="number" id="loan-amount" placeholder="e.g., 300000" required>
+                    <label for="loan-amount">Loan Amount</label>
+                    <div class="input-wrapper">
+                        <span class="currency-symbol">$</span>
+                        <input type="number" id="loan-amount" placeholder="300000" required>
+                    </div>
                 </div>
                 
-                <div class="form-group">
-                    <label for="interest-rate">Annual Interest Rate (%)</label>
-                    <input type="number" id="interest-rate" placeholder="e.g., 5.5" step="0.01" required>
-                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="interest-rate">Interest Rate (%)</label>
+                        <input type="number" id="interest-rate" placeholder="5.5" step="0.01" required>
+                    </div>
 
-                <div class="form-group">
-                    <label for="loan-term">Loan Term (Years)</label>
-                    <input type="number" id="loan-term" placeholder="e.g., 30" required>
+                    <div class="form-group">
+                        <label for="loan-term">Years</label>
+                        <input type="number" id="loan-term" placeholder="30" required>
+                    </div>
                 </div>
                 
                 <hr class="form-divider">
                 
                 <div class="form-group">
-                    <label for="extra-monthly">Extra Monthly Payment ($)</label>
-                    <input type="number" id="extra-monthly" placeholder="e.g., 100" value="0">
-                    <div class="small-label">Optional: Pay off debt faster</div>
+                    <label for="extra-monthly">Extra Monthly Payment</label>
+                    <div class="input-wrapper">
+                        <span class="currency-symbol">$</span>
+                        <input type="number" id="extra-monthly" placeholder="0">
+                    </div>
+                    <div class="small-label">Optional: Reduce your interest</div>
                 </div>
 
-                <div class="form-group">
-                    <label for="one-time-payment">One-Time Payment ($)</label>
-                    <input type="number" id="one-time-payment" placeholder="e.g., 5000" value="0">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="one-time-payment">One-Time Payment</label>
+                        <input type="number" id="one-time-payment" placeholder="0">
+                    </div>
                     
-                    <label for="one-time-month" class="small-label" style="margin-top:10px">Month to apply:</label>
-                    <input type="number" id="one-time-month" placeholder="e.g., 12" value="0">
+                    <div class="form-group">
+                        <label for="one-time-month">At Month</label>
+                        <input type="number" id="one-time-month" placeholder="12">
+                    </div>
                 </div>
 
-                <button type="button" id="calculate-btn">Calculate Loan</button>
+                <button type="button" id="calculate-btn">Calculate Results</button>
             </form>
         </section>
 
         <section class="output-panel">
-            <h3>Your Results</h3>
+            <h3>Summary</h3>
             
-            <div class="result-box">
+            <div class="result-card primary-result">
                 <p>Monthly Payment</p>
                 <span id="monthly-payment-result">$0.00</span>
             </div>
 
-            <div class="result-box">
-                <p>Total Interest</p>
-                <span id="total-interest-result">$0.00</span>
+            <div class="results-grid">
+                <div class="result-card">
+                    <p>Total Interest</p>
+                    <span id="total-interest-result">$0.00</span>
+                </div>
+                <div class="result-card">
+                    <p>Total Cost</p>
+                    <span id="total-cost-result">$0.00</span>
+                </div>
             </div>
 
-            <div class="result-box">
-                <p>Total Cost</p>
-                <span id="total-cost-result">$0.00</span>
-            </div>
-
-            <div class="result-box result-box-new">
-                <p>Interest Saved</p>
-                <span id="interest-saved-result">$0.00</span>
-            </div>
-
-            <div class="result-box result-box-new">
-                <p>Paid Off In</p>
-                <span id="payoff-date-result">--</span>
+            <div class="savings-card">
+                <div class="savings-row">
+                    <p>Interest Saved</p>
+                    <span id="interest-saved-result">$0.00</span>
+                </div>
+                <div class="savings-row">
+                    <p>Paid Off In</p>
+                    <span id="payoff-date-result">--</span>
+                </div>
             </div>
 
             <button id="print-btn" class="secondary-btn">
-                🖨️ Print / Save as PDF
+                Download PDF Report
             </button>
 
-            <hr>
-
-            <h3>Amortization Schedule</h3>
-            <div class="table-container">
-                <table id="amortization-table">
-                    <thead>
-                        <tr>
-                            <th>Month</th>
-                            <th>Principal</th>
-                            <th>Interest</th>
-                            <th>Balance</th>
-                        </tr>
-                    </thead>
-                    <tbody id="amortization-body">
-                        </tbody>
-                </table>
+            <div class="table-wrapper">
+                <h3>Amortization Schedule</h3>
+                <div class="table-container">
+                    <table id="amortization-table">
+                        <thead>
+                            <tr>
+                                <th>Month</th>
+                                <th>Principal</th>
+                                <th>Interest</th>
+                                <th>Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody id="amortization-body">
+                            </tbody>
+                    </table>
+                </div>
             </div>
         </section>
 
