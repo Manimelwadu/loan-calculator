@@ -1,20 +1,26 @@
 /* =========================================
-   THEME VARIABLES
+   VARIABLES (Clean Palette)
    ========================================= */
 :root {
-    --bg-gradient: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-    --glass-bg: rgba(255, 255, 255, 0.05);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --neon-blue: #00f2ff;
-    --neon-purple: #bc13fe;
-    --text-main: #ffffff;
-    --text-muted: #a0a0a0;
-    --input-bg: rgba(0, 0, 0, 0.3);
-    --shadow-strong: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+    --bg-page: #f3f4f6;       /* Light Cloud Gray */
+    --bg-card: #ffffff;       /* Pure White */
+    --bg-input: #f9fafb;      /* Very Light Gray for inputs */
+    
+    --primary: #2563eb;       /* Royal Blue */
+    --primary-hover: #1d4ed8;
+    --accent-green: #10b981;  /* Success Green */
+    
+    --text-dark: #111827;     /* Almost Black */
+    --text-medium: #4b5563;   /* Dark Gray */
+    --text-light: #9ca3af;    /* Light Gray */
+    
+    --border: #e5e7eb;
+    --radius: 12px;           /* Smooth rounded corners */
+    --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
 }
 
 /* =========================================
-   GLOBAL STYLES
+   GLOBAL RESET
    ========================================= */
 * {
     box-sizing: border-box;
@@ -24,309 +30,316 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background: var(--bg-gradient);
-    background-attachment: fixed;
-    color: var(--text-main);
+    background-color: var(--bg-page);
+    color: var(--text-dark);
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center; /* Centers the card vertically */
+    align-items: center;
     padding: 2rem;
+    line-height: 1.5;
 }
 
 /* =========================================
-   MAIN CONTAINER (Glass Card)
+   MAIN CARD CONTAINER
    ========================================= */
 .calculator-container {
     display: grid;
-    grid-template-columns: 1fr 1.3fr;
-    gap: 0;
+    grid-template-columns: 1fr 1.2fr;
+    background: var(--bg-card);
     width: 100%;
-    max-width: 1100px;
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--glass-border);
-    border-radius: 20px;
-    box-shadow: var(--shadow-strong);
+    max-width: 1000px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
     overflow: hidden;
-    animation: slideUp 0.8s ease-out;
-}
-
-@keyframes slideUp {
-    from { transform: translateY(50px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+    border: 1px solid white;
 }
 
 /* =========================================
-   LEFT PANEL (Inputs)
+   LEFT PANEL (INPUTS)
    ========================================= */
 .input-panel {
     padding: 2.5rem;
-    background: rgba(0, 0, 0, 0.2);
-    border-right: 1px solid var(--glass-border);
+    border-right: 1px solid var(--border);
+}
+
+.input-panel header {
+    margin-bottom: 2rem;
 }
 
 .input-panel h2 {
+    font-size: 1.5rem;
     font-weight: 700;
-    font-size: 1.8rem;
-    margin-bottom: 2rem;
-    /* Gradient Text */
-    background: linear-gradient(to right, var(--neon-blue), var(--neon-purple));
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    letter-spacing: 1px;
+    color: var(--text-dark);
+    margin-bottom: 0.25rem;
 }
 
-.form-group {
-    margin-bottom: 1.2rem;
-}
-
-.form-group label {
+.input-panel p {
     font-size: 0.9rem;
-    color: var(--text-muted);
-    margin-bottom: 0.5rem;
+    color: var(--text-medium);
+}
+
+/* Forms */
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+label {
     display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-medium);
+    margin-bottom: 0.5rem;
 }
 
-.form-group .small-label {
-    font-size: 0.75rem;
-    color: var(--neon-blue);
-    opacity: 0.8;
-    margin-top: 4px;
+/* Input Styling */
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
 }
 
-.form-group input {
+.currency-symbol {
+    position: absolute;
+    left: 1rem;
+    color: var(--text-light);
+    font-weight: 500;
+    z-index: 2;
+}
+
+input {
     width: 100%;
-    background: var(--input-bg);
-    border: 1px solid var(--glass-border);
-    padding: 0.8rem;
-    border-radius: 8px;
-    color: #fff;
+    padding: 0.75rem 1rem;
     font-size: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background-color: var(--bg-input);
+    color: var(--text-dark);
     font-family: 'Inter', sans-serif;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
 }
 
-.form-group input:focus {
+/* Add padding if there is a $ symbol */
+.input-wrapper input {
+    padding-left: 2rem; 
+}
+
+input:focus {
     outline: none;
-    border-color: var(--neon-blue);
-    box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
-    background: rgba(0, 0, 0, 0.5);
+    border-color: var(--primary);
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+.small-label {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-top: 0.25rem;
 }
 
 .form-divider {
     border: 0;
     height: 1px;
-    background: linear-gradient(to right, transparent, var(--glass-border), transparent);
+    background: var(--border);
     margin: 1.5rem 0;
 }
 
+/* Primary Button */
 #calculate-btn {
     width: 100%;
-    padding: 1rem;
+    padding: 0.9rem;
     margin-top: 1rem;
+    background-color: var(--primary);
+    color: white;
     border: none;
     border-radius: 8px;
-    background: linear-gradient(45deg, var(--neon-blue), #007bff);
-    color: #000;
-    font-weight: 700;
     font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    font-weight: 600;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: background-color 0.2s, transform 0.1s;
 }
 
 #calculate-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
+    background-color: var(--primary-hover);
+}
+
+#calculate-btn:active {
+    transform: scale(0.98);
 }
 
 /* =========================================
-   RIGHT PANEL (Outputs)
+   RIGHT PANEL (OUTPUTS)
    ========================================= */
 .output-panel {
     padding: 2.5rem;
-    background: rgba(255, 255, 255, 0.02);
+    background-color: #f8fafc; /* Very subtle gray for contrast */
 }
 
 .output-panel h3 {
-    font-size: 1.4rem;
-    margin-bottom: 1.5rem;
-    color: var(--text-main);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-light);
+    font-weight: 700;
+    margin-bottom: 1rem;
 }
 
-.result-box {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 1rem;
-    border-radius: 10px;
-    margin-bottom: 0.8rem;
-    border-left: 4px solid var(--glass-border);
-    transition: transform 0.3s ease;
+/* Result Cards */
+.result-card {
+    background: white;
+    padding: 1rem 1.25rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    margin-bottom: 1rem;
 }
 
-.result-box:hover {
-    transform: translateX(5px);
-    background: rgba(255, 255, 255, 0.08);
+.primary-result {
+    border-left: 4px solid var(--primary);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.result-card p {
+    font-size: 0.85rem;
+    color: var(--text-medium);
+    margin-bottom: 0.25rem;
+}
+
+.result-card span {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
 }
 
 #monthly-payment-result {
-    color: var(--neon-blue);
-    font-size: 1.5rem;
+    color: var(--primary);
+    font-size: 2rem;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+/* Savings Section */
+.savings-card {
+    background-color: #f0fdf4; /* Light green bg */
+    border: 1px solid #bbf7d0;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.savings-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.savings-row:last-child {
+    margin-bottom: 0;
+}
+
+.savings-row p {
+    font-size: 0.9rem;
+    color: #166534; /* Dark green */
+}
+
+.savings-row span {
     font-weight: 700;
-    text-shadow: 0 0 10px rgba(0, 242, 255, 0.3);
+    color: #15803d;
 }
 
-/* Special styling for 'Saved' results */
-.result-box-new {
-    background: rgba(188, 19, 254, 0.08);
-    border-left: 4px solid var(--neon-purple);
-}
-.result-box-new span {
-    color: var(--neon-purple);
-    font-weight: 700;
-    text-shadow: 0 0 8px rgba(188, 19, 254, 0.3);
-}
-
-.output-panel hr {
-    border: 0;
-    height: 1px;
-    background: var(--glass-border);
-    margin: 1.5rem 0;
-}
-
-/* Secondary Button (Print) */
+/* Secondary Button */
 .secondary-btn {
     width: 100%;
-    padding: 0.8rem;
-    margin-top: 1rem;
-    border: 1px solid var(--glass-border);
-    border-radius: 8px;
     background: transparent;
-    color: var(--text-muted);
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
+    color: var(--text-medium);
+    border: 1px solid var(--border);
+    padding: 0.75rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
-}
-.secondary-btn:hover {
-    background: rgba(255,255,255,0.1);
-    color: white;
-    border-color: white;
+    margin-bottom: 2rem;
+    transition: all 0.2s;
 }
 
-/* =========================================
-   TABLE
-   ========================================= */
+.secondary-btn:hover {
+    background: white;
+    border-color: var(--text-medium);
+    color: var(--text-dark);
+}
+
+/* Table */
+.table-wrapper {
+    margin-top: 2rem;
+}
+
 .table-container {
-    max-height: 300px;
+    max-height: 250px;
     overflow-y: auto;
+    border: 1px solid var(--border);
     border-radius: 8px;
-    background: rgba(0,0,0,0.2);
-}
-.table-container::-webkit-scrollbar {
-    width: 6px;
-}
-.table-container::-webkit-scrollbar-thumb {
-    background: var(--glass-border);
-    border-radius: 3px;
+    background: white;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
+
 th {
     text-align: left;
-    padding: 1rem;
-    background: rgba(0,0,0,0.4);
-    color: var(--text-muted);
+    padding: 0.75rem 1rem;
+    background-color: #f3f4f6;
+    color: var(--text-medium);
+    font-weight: 600;
     position: sticky;
     top: 0;
-    backdrop-filter: blur(5px);
+    border-bottom: 1px solid var(--border);
 }
+
 td {
-    padding: 0.8rem 1rem;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-dark);
 }
-tr:hover td {
-    background: rgba(0, 242, 255, 0.05);
+
+tr:last-child td {
+    border-bottom: none;
 }
 
 /* =========================================
-   MOBILE RESPONSIVE
+   RESPONSIVE
    ========================================= */
-@media (max-width: 900px) {
+@media (max-width: 800px) {
     .calculator-container {
         grid-template-columns: 1fr;
-        margin-top: 2rem;
-        margin-bottom: 2rem;
+        margin: 1rem 0;
     }
-    .input-panel, .output-panel {
-        padding: 1.5rem;
+    
+    .input-panel {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
     }
 }
 
 /* =========================================
-   PRINT MODE (Clean PDF)
+   PRINT STYLES
    ========================================= */
 @media print {
-    body {
-        background: white;
-        color: black;
-        display: block;
-        padding: 0;
-    }
-    .calculator-container {
-        box-shadow: none;
-        border: none;
-        width: 100%;
-        max-width: 100%;
-        background: white;
-        display: block;
-        backdrop-filter: none;
-    }
-    .input-panel, #calculate-btn, .secondary-btn, .form-divider {
-        display: none !important;
-    }
-    .output-panel {
-        padding: 0;
-        background: white;
-    }
-    .result-box, .result-box-new {
-        background: white;
-        border: none;
-        border-bottom: 1px solid #ccc;
-        color: black;
-        padding: 0.5rem 0;
-        margin: 0;
-    }
-    .result-box p, .result-box span, #monthly-payment-result, .result-box-new span {
-        color: black !important;
-        text-shadow: none !important;
-    }
-    .output-panel h3 {
-        color: black;
-        border-bottom: 2px solid black;
-    }
-    .table-container {
-        max-height: none;
-        overflow: visible;
-        background: white;
-    }
-    th {
-        background: #eee;
-        color: black;
-        border-bottom: 2px solid black;
-    }
-    td {
-        border-bottom: 1px solid #ccc;
-        color: black;
-    }
+    body { background: white; }
+    .calculator-container { box-shadow: none; border: none; width: 100%; max-width: 100%; grid-template-columns: 1fr; }
+    .input-panel, #calculate-btn, .secondary-btn { display: none !important; }
+    .output-panel { padding: 0; background: white; }
+    .table-container { max-height: none; border: none; }
+    th { background: #eee; }
 }
