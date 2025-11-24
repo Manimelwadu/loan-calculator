@@ -2,20 +2,20 @@
    VARIABLES (Clean Palette)
    ========================================= */
 :root {
-    --bg-page: #f3f4f6;       /* Light Cloud Gray */
-    --bg-card: #ffffff;       /* Pure White */
-    --bg-input: #f9fafb;      /* Very Light Gray for inputs */
+    --bg-page: #f3f4f6;       
+    --bg-card: #ffffff;       
+    --bg-input: #f9fafb;      
     
-    --primary: #2563eb;       /* Royal Blue */
+    --primary: #2563eb;       
     --primary-hover: #1d4ed8;
-    --accent-green: #10b981;  /* Success Green */
+    --accent-green: #10b981;  
     
-    --text-dark: #111827;     /* Almost Black */
-    --text-medium: #4b5563;   /* Dark Gray */
-    --text-light: #9ca3af;    /* Light Gray */
+    --text-dark: #111827;     
+    --text-medium: #4b5563;   
+    --text-light: #9ca3af;    
     
     --border: #e5e7eb;
-    --radius: 12px;           /* Smooth rounded corners */
+    --radius: 12px;           
     --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
 }
 
@@ -105,17 +105,11 @@ label {
     align-items: center;
 }
 
-.currency-symbol {
-    position: absolute;
-    left: 1rem;
-    color: var(--text-light);
-    font-weight: 500;
-    z-index: 2;
-}
+/* REMOVED: .currency-symbol class is no longer needed */
 
 input {
     width: 100%;
-    padding: 0.75rem 1rem;
+    padding: 0.75rem 1rem; /* Standard padding now */
     font-size: 1rem;
     border: 1px solid var(--border);
     border-radius: 8px;
@@ -123,11 +117,6 @@ input {
     color: var(--text-dark);
     font-family: 'Inter', sans-serif;
     transition: all 0.2s ease;
-}
-
-/* Add padding if there is a $ symbol */
-.input-wrapper input {
-    padding-left: 2rem; 
 }
 
 input:focus {
@@ -178,7 +167,7 @@ input:focus {
    ========================================= */
 .output-panel {
     padding: 2.5rem;
-    background-color: #f8fafc; /* Very subtle gray for contrast */
+    background-color: #f8fafc;
 }
 
 .output-panel h3 {
@@ -225,121 +214,4 @@ input:focus {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
-}
-
-/* Savings Section */
-.savings-card {
-    background-color: #f0fdf4; /* Light green bg */
-    border: 1px solid #bbf7d0;
-    border-radius: 8px;
-    padding: 1rem;
-    margin-bottom: 1.5rem;
-}
-
-.savings-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.5rem;
-}
-
-.savings-row:last-child {
-    margin-bottom: 0;
-}
-
-.savings-row p {
-    font-size: 0.9rem;
-    color: #166534; /* Dark green */
-}
-
-.savings-row span {
-    font-weight: 700;
-    color: #15803d;
-}
-
-/* Secondary Button */
-.secondary-btn {
-    width: 100%;
-    background: transparent;
-    color: var(--text-medium);
-    border: 1px solid var(--border);
-    padding: 0.75rem;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    cursor: pointer;
-    margin-bottom: 2rem;
-    transition: all 0.2s;
-}
-
-.secondary-btn:hover {
-    background: white;
-    border-color: var(--text-medium);
-    color: var(--text-dark);
-}
-
-/* Table */
-.table-wrapper {
-    margin-top: 2rem;
-}
-
-.table-container {
-    max-height: 250px;
-    overflow-y: auto;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background: white;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.85rem;
-}
-
-th {
-    text-align: left;
-    padding: 0.75rem 1rem;
-    background-color: #f3f4f6;
-    color: var(--text-medium);
-    font-weight: 600;
-    position: sticky;
-    top: 0;
-    border-bottom: 1px solid var(--border);
-}
-
-td {
-    padding: 0.75rem 1rem;
-    border-bottom: 1px solid var(--border);
-    color: var(--text-dark);
-}
-
-tr:last-child td {
-    border-bottom: none;
-}
-
-/* =========================================
-   RESPONSIVE
-   ========================================= */
-@media (max-width: 800px) {
-    .calculator-container {
-        grid-template-columns: 1fr;
-        margin: 1rem 0;
-    }
-    
-    .input-panel {
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-    }
-}
-
-/* =========================================
-   PRINT STYLES
-   ========================================= */
-@media print {
-    body { background: white; }
-    .calculator-container { box-shadow: none; border: none; width: 100%; max-width: 100%; grid-template-columns: 1fr; }
-    .input-panel, #calculate-btn, .secondary-btn { display: none !important; }
-    .output-panel { padding: 0; background: white; }
-    .table-container { max-height: none; border: none; }
-    th { background: #eee; }
 }
